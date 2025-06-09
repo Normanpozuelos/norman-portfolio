@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 html, body {
   margin: 0;
@@ -32,4 +37,21 @@ html, body {
   .animate-loading-bar {
     animation: loading 0.8s ease infinite;
   }
+}
+
+@keyframes kitt {
+  0% {
+    left: 0%;
+  }
+  50% {
+    left: 90%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+
+
+.animate-kitt {
+  animation: kitt 1.5s ease-in-out infinite;
 }
