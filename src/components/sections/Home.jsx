@@ -4,7 +4,7 @@ export const Home = () => {
         <section id="home" className="min-h-screen flex items-center justify-center relative" >
             
             <div className="text-center z-10  px-4">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-500 to-blue-500 
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-cyan-400 
                                text-transparent bg-clip-text
                               leading-right ">
                     Welcome to My Portfolio</h1>
