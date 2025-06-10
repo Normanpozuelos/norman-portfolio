@@ -41,17 +41,16 @@ html, body {
 
 @keyframes kitt {
   0% {
-    left: 0%;
+    left: 0;
   }
   50% {
-    left: 90%;
+    left: 70%;
   }
   100% {
     left: 0%;
   }
 }
 
-
 .animate-kitt {
-  animation: kitt 1.5s ease-in-out infinite;
+  animation: kitt 3s ease-in-out infinite;
 }

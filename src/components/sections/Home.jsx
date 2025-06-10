@@ -1,6 +1,9 @@
+import KittLight from "./KittLight"
 
 export const Home = () => {
     return (
+        <>
+        
         <section id="home" className="min-h-screen flex items-center justify-center relative" >
             
             <div className="text-center z-10  px-4">
@@ -8,6 +11,7 @@ export const Home = () => {
                                text-transparent bg-clip-text
                               leading-right ">
                     Welcome to My Portfolio</h1>
+                    <KittLight />
                 <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">Explore my projects and skills</p>
                 <div className="flex justify-center space-x-4">               
                  <a href="#projects" 
@@ -25,5 +29,6 @@ export const Home = () => {
                 </div>
             </div>
         </section>
+        </>
     )
 }

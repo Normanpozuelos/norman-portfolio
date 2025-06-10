@@ -18,9 +18,9 @@ export const About = () => {
                 bg-clip-text text-transparent text-center" >About me</h2>
                 <div className="rounded-xl p-8 border-white/10 border hover:-translate-y-1 transition-all" >
                     <p className="text-gray-300 mb-6">
-                        Hello! I'm learning to be a web developer and a foccus for creating dynamic and responsive websites. 
+                        Hello! I'm learning to be a web developer and I have a focus for creating dynamic and responsive websites. 
                         My journey in web development began with a fascination for how things work behind the scenes, 
-                        and it has evolved into a full-fledged career. I specialize in building user-friendly interfaces 
+                        and it has evolved from basic HTML and CSS to learn Typescript and React. I specialize in building user-friendly interfaces 
                         and ensuring seamless user experiences across devices.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -51,6 +51,35 @@ export const About = () => {
                                 ))}
                             </div>
                     
+                        </div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all ">
+                        <h3 className="text-xl font-bold mb-4">📚 Education ✏️</h3>
+                        <ul className="list-disc list-inside text-gray-300 space-y-2">
+                            <li className="mb-2">
+                                <strong>Coursera Front end Development</strong> - Online Course, 2023
+                            </li>
+                            <li className="mb-2">
+                                <strong>React, Tailwind, Typescript</strong> - Online Course, 2023
+                            </li>
+                            <li className="mb-2">
+                                <strong>High School Diploma</strong> - ABC High School, 2018
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all ">
+                        <h3 className="text-xl font-bold mb-4">💼 Work experience 🛠️</h3>
+                        <div className="space-y-4 text-gray-300">
+                            <div>
+                                <strong>Web Development Intern</strong> - XYZ Company, 2023
+                                <p className="text-sm">Assisted in developing and maintaining company website using React and Tailwind CSS.</p>
+                            </div>
+                            <div>
+                                <strong>Freelance Web Developer</strong> - 2022-Present
+                                <p className="text-sm">Worked on various projects including personal blogs and small business websites.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
