@@ -7,6 +7,7 @@ import { About } from './components/sections/About'
 import { Projects } from './components/Projects'
 import './App.css'
 import './index.css'
+import { Contact } from './components/sections/Contact'
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,6 +24,7 @@ function App() {
         <Home />
         <About />
         <Projects />
+        <Contact />
       </div>
       
     </>
@@ -30,4 +32,4 @@ function App() {
 }
 
 export default App
- //1h:25
+ //1h:40
