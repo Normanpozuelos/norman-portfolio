@@ -1,18 +1,32 @@
+import { useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll"
 import emailjs from 'emailjs-com';
 
 export const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: '',
+    })
 
+
+    // Initialize EmailJS with your public key
     const sendEmail = (e) => {  
         e.preventDefault();
 
-        const SERVICE_ID = "service_9r96f06";
-        const TEMPLATE_ID = "template_rd5fxwc";
-        const PUBLIC_KEY = "jziEyITRdWb-vidrU";
-        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
+
+        emailjs.sendForm(
+            import.meta.VITE_SERVICE_ID, 
+            import.meta.VITE_TEMPLATE_ID, 
+            e.target, 
+            import.meta.VITE_PUBLIC_KEY)
             .then((result) => {
-                console.log(result.text);
                 alert("Message sent successfully!");
+                setFormData({
+                    name: '',
+                    email: '',
+                    message: ''
+                });
             })
             .catch((error) => {
                 console.error(error.text);
@@ -29,15 +43,30 @@ export const Contact = () => {
             <p className="text-gray-300 mb-6">
                 I'm always open to new opportunities and collaborations. If you'd like to get in touch, feel free to reach out!
             </p>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={sendEmail}>
                 <div className="relative">
-                <input type="text" id="name" name="name" required placeholder="Your Name" className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input 
+                type="text" id="name" name="name" 
+                value={formData.name}
+                required placeholder="Your Name" 
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div className="relative">
-                <input type="email" placeholder="Your Email" className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="email" placeholder="Your Email" 
+                id="email" name="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div className="relative">
-                <textarea placeholder="Your Message..." rows="4" className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <textarea 
+                placeholder="Your Message..." rows="4" 
+                id="message" name="message"
+                value={formData.message}
+                required
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full p-3 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition-colors">Send Message</button>
                 </div>
             </form>
