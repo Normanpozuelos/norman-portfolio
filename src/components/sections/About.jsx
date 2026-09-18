@@ -3,13 +3,28 @@ export const About = () => {
 
     const frontendSkills = [  
         "HTML, CSS, JavaScript",
-        "React.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
         "Responsive Design",
-        "Version Control with Git",
-        "Typescript, Tailwind CSS",
+        "Git & GitHub",
     ];
 
-    const backendSkills = ["Node.js", "Express.js",   ];
+    const backendSkills = [
+        "Supabase",
+        "PostgreSQL",
+        "Authentication",
+        "Row Level Security (RLS)",
+        "REST APIs",
+        "Data modeling",
+    ];
+
+    const mobileSkills = [
+        "SwiftUI",
+        "SwiftData",
+        "Kotlin",
+        "Jetpack Compose",
+    ];
 
     return (
         <section id="about" className="min-h-screen flex items-center justify-center py-20">
@@ -19,12 +34,14 @@ export const About = () => {
                 bg-clip-text text-transparent text-center" >About me</h2>
                 <div className="rounded-xl p-8 border-white/10 border hover:-translate-y-1 transition-all" >
                     <p className="text-gray-300 mb-6">
-                        Hello! I'm learning to be a web developer and I have a focus for creating dynamic and responsive websites. 
-                        My journey in web development began with a fascination for how things work behind the scenes, 
-                        and it has evolved from basic HTML and CSS to learn Typescript and React. I specialize in building user-friendly interfaces 
-                        and ensuring seamless user experiences across devices.
+                        Hello! I'm a developer focused on building practical, user-friendly applications across web and mobile. 
+                        My journey in development began with a fascination for how things work behind the scenes, 
+                        and has grown from HTML and CSS into React, TypeScript, SwiftUI, Kotlin and Jetpack Compose. 
+                        I also work with Supabase for backend services, authentication, PostgreSQL and Row Level Security. 
+                        I enjoy bringing the different parts of an application together, from the user interface and experience 
+                        to data and backend services.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                         <div className="rounded-xl p-6 hover:-translate-y-1 transition-all">
                             <h3 className="text-xl font-semibold mb-4">Frontend Skills</h3>
                             <div className="flex flex-wrap gap-2">
@@ -40,7 +57,7 @@ export const About = () => {
                         </div>
                    
                         <div className="rounded-xl p-6 hover:-translate-y-1 transition-all">
-                            <h3 className="text-xl font-semibold mb-4">Backend Skills</h3>
+                            <h3 className="text-xl font-semibold mb-4">Backend &amp; Data</h3>
                             <div className="flex flex-wrap gap-2">
                                 {backendSkills.map((skill, index) => (
                                     <span key={index} className="bg-blue-500/10 text-blue-500 py-1 px-3  rounded-full 
@@ -52,33 +69,45 @@ export const About = () => {
                             </div>
                     
                         </div>
+                        <div className="rounded-xl p-6 hover:-translate-y-1 transition-all">
+                            <h3 className="text-xl font-semibold mb-4">Mobile Development</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {mobileSkills.map((skill, index) => (
+                                    <span key={index} className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                    <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all ">
-                        <h3 className="text-xl font-bold mb-4">📚 Education ✏️</h3>
-                        <ul className="list-disc list-inside text-gray-300 space-y-2">
-                            <li className="mb-2">
-                                <strong>Coursera Front end Development</strong> - Online Course, 2023
-                            </li>
-                            <li className="mb-2">
-                                <strong>React, Tailwind, Typescript</strong> - Online Course, 2023
-                            </li>
-                            <li className="mb-2">
-                                <strong>High School Diploma</strong> - ABC High School, 2018
-                            </li>
-                        </ul>
+                <div className="mt-8 rounded-xl border border-white/10 p-6 transition-all hover:-translate-y-1 md:p-8">
+                    <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 className="text-2xl font-bold">Experience &amp; Projects</h3>
+                        <span className="text-sm text-cyan-300">2025-Present</span>
                     </div>
-                    <div className="p-6 rounded-xl border-white/10 border hover:-translate-y-1 transition-all ">
-                        <h3 className="text-xl font-bold mb-4">💼 Work experience 🛠️</h3>
-                        <div className="space-y-4 text-gray-300">
+                    <div className="space-y-5 text-gray-300">
+                        <div>
+                            <h4 className="mb-2 text-lg font-semibold text-white">Guidance Fitness <span className="font-normal text-gray-400">- Personal Project</span></h4>
+                            <p className="text-sm leading-relaxed">
+                                Guidance grew from a simple gym problem: remembering a training plan and how to use unfamiliar exercises or machines. I built it as a training companion that keeps workouts accessible and makes exercises easier to understand.
+                            </p>
+                        </div>
+                        <div className="grid gap-5 text-sm leading-relaxed md:grid-cols-2">
                             <div>
-                                <strong>Web Development Intern</strong> - XYZ Company, 2023
-                                <p className="text-sm">Assisted in developing and maintaining company website using React and Tailwind CSS.</p>
+                                <h5 className="mb-2 font-semibold text-white">What I built</h5>
+                                <ul className="list-disc space-y-1 pl-5">
+                                    <li>iOS app with SwiftUI and SwiftData</li>
+                                    <li>Android app with Kotlin and Jetpack Compose</li>
+                                    <li>React dashboard for personal trainers</li>
+                                    <li>Shared Supabase backend with authentication and localization in English, Norwegian, and Spanish</li>
+                                </ul>
                             </div>
                             <div>
-                                <strong>Freelance Web Developer</strong> - 2022-Present
-                                <p className="text-sm">Worked on various projects including personal blogs and small business websites.</p>
+                                <h5 className="mb-2 font-semibold text-white">What I learned</h5>
+                                <p>
+                                    I designed the architecture, data model, and user experience across platforms. The project taught me how UI, local state, authentication, synchronization, and backend data work together, including the distinction between recurring workout plans and completed sessions.
+                                </p>
                             </div>
                         </div>
                     </div>
