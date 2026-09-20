@@ -1,12 +1,47 @@
-# React + Vite
+# Norman Pozuelos — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal developer portfolio showcasing my projects, learning journey, and experience building web and mobile applications.
 
-Currently, two official plugins are available:
+🌐 **Live Portfolio:** https://normanpozuelos.github.io/norman-portfolio/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Featured Projects
 
-## Expanding the ESLint configuration
+### Guidance
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+A cross-platform training companion built across iOS, Android, and Web.
+
+The project uses a shared Supabase backend so training data, accounts, and progress can work consistently across the different parts of the platform.
+
+**Technologies:** SwiftUI · SwiftData · Kotlin · Jetpack Compose · Next.js · Supabase · RLS · Edge Functions · Google Auth · Localization
+
+### Game Hub
+
+A game discovery application built with React and TypeScript while following Mosh Hamedani's Game Hub course.
+
+I built it alongside the course, writing and debugging each part myself. The project gave me hands-on experience with external APIs, reusable components, custom hooks, TanStack Query, Zustand, React Router, filtering, searching, and sorting.
+
+**Technologies:** React · TypeScript · TanStack Query · Zustand · React Router · RAWG API · Vercel
+
+## About
+
+I learn by building. I follow established patterns, understand how they work, and then apply those concepts in increasingly independent projects.
+
+Currently studying software development at Gokstad Akademiet.
+
+## Technologies
+
+- React
+- TypeScript
+- JavaScript
+- Swift / SwiftUI
+- Kotlin / Jetpack Compose
+- Next.js
+- Supabase
+- Vite
+- Git / GitHub
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
