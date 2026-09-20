@@ -104,10 +104,14 @@ export const About = () => {
                                 </ul>
                             </div>
                             <div>
-                                <h5 className="mb-2 font-semibold text-white">What I learned</h5>
-                                <p>
-                                    I designed the architecture, data model, and user experience across platforms. The project taught me how UI, local state, authentication, synchronization, and backend data work together, including the distinction between recurring workout plans and completed sessions.
-                                </p>
+                                <h5 className="mb-2 font-semibold text-white">What I worked on</h5>
+
+                                 <ul className="list-disc pl-5 space-y-2">
+                                    <li>Application architecture, data model, and UX across platforms</li>
+                                    <li>Authentication, synchronization, and Row Level Security</li>
+                                    <li>Workout planning and completed-session data flow</li>
+                                    <li>Localization and cross-platform consistency</li>
+                                 </ul>
                             </div>
                         </div>
                     </div>
