@@ -157,7 +157,7 @@ export function Projects() {
                 "A training companion with tools for exploring exercises, reviewing workout sessions, and tracking progress.",
                 "The project is presented across iOS and Android to show the same training experience on both platforms. I built the applications around a shared backend so training data, accounts, and progress can work consistently across the different parts of the platform.",
               ]}
-              tags={["iOS", "Android", "Fitness", "Progress tracking"]}
+              tags={["SwiftUI", "SwiftData", "Kotlin", "Jetpack Compose", "Next.js", "Supabase", "RLS", "Edge Functions", "Google Auth", "Localization"]}
               screenshots={guidanceScreenshots}
               wideGroups={["Webpage"]}
             />
