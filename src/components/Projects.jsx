@@ -116,7 +116,7 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
 
   return (
     <>
-      <article className="overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-400/10 shadow-[0_2px_24px_rgba(59,130,246,0.15)]">
+      <article className="overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-400/10 shadow-[0_0_24px_rgba(59,130,246,0.22),0_0_56px_rgba(34,211,238,0.085)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.34),0_0_64px_rgba(34,211,238,0.145)]">
         <div className="grid gap-8 p-6 md:grid-cols-[0.9fr_1.1fr] md:p-10">
           <div>
             <p className="mb-3 font-mono text-sm uppercase tracking-[0.2em] text-cyan-300">{eyebrow}</p>
@@ -240,7 +240,7 @@ export function Projects() {
               screenshots={gameHubScreenshots}
               wideGroups={["Screens"]}
             />
-            <div className="-mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
+            <div className="-mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 shadow-[0_0_24px_rgba(59,130,246,0.22),0_0_56px_rgba(34,211,238,0.085)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.34),0_0_64px_rgba(34,211,238,0.145)]">
               <h3 className="mb-2 text-xl font-bold text-white">Portfolio Source Code</h3>
               <p className="mb-4 text-sm leading-normal text-gray-400">A React portfolio showcasing my projects, development journey, and interactive UI experiments. The site opens with a simple &ldquo;Hello World&rdquo; and evolves through visual themes inspired by AI, Android, and KITT.</p>
               <a href="https://github.com/Normanpozuelos/norman-portfolio" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-indigo-500/40 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-indigo-400 hover:bg-indigo-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300">
