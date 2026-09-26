@@ -53,6 +53,7 @@ const gameHubScreenshots = {
 
 const linkStyles = {
   appstore: { card: "border-blue-500/40 bg-blue-500/10 hover:border-blue-400 hover:bg-blue-500/20", icon: "bg-blue-500" },
+  googleplay: { card: "border-lime-500/40 bg-lime-500/10 hover:border-lime-400 hover:bg-lime-500/20", icon: "bg-lime-600" },
   globe: { card: "border-emerald-500/40 bg-emerald-500/10 hover:border-emerald-400 hover:bg-emerald-500/20", icon: "bg-emerald-500" },
   github: { card: "border-indigo-500/40 bg-indigo-500/10 hover:border-indigo-400 hover:bg-indigo-500/20", icon: "bg-transparent" },
 };
@@ -62,6 +63,14 @@ function LinkIcon({ type, className }) {
     return (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 4.5 8 11.5M12 4.5l5 9M5.5 15.5h5M14 15.5h4.5M8.5 19.5l3-5.5" />
+      </svg>
+    );
+  }
+  if (type === "googleplay") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M5.5 3.5v17a.8.8 0 0 0 1.2.7l14-8.5a.8.8 0 0 0 0-1.4l-14-8.5a.8.8 0 0 0-1.2.7Z" />
+        <path d="M5.8 3.2 15 12l-9.2 8.8M15 12l2.8-2.7M15 12l2.8 2.7" />
       </svg>
     );
   }
@@ -218,6 +227,7 @@ export function Projects() {
               tags={["SwiftUI", "SwiftData", "Kotlin", "Jetpack Compose", "Next.js", "Supabase", "RLS", "Edge Functions", "Google Auth", "Localization"]}
               links={[
                 { label: "Guidance on the App Store", subtitle: "Download the iOS app", icon: "appstore", href: "https://apps.apple.com/us/app/guidance-fitness/id6793653135" },
+                { label: "Guidance on Google Play", subtitle: "Download the Android app", icon: "googleplay", href: "https://play.google.com/store/apps/details?id=no.guidance.app&pcampaignid=web_share" },
                 { label: "Live PT Dashboard", subtitle: "Web application for personal trainers", icon: "globe", href: "https://guidance-pt-dashboard.vercel.app/" },
                 { label: "Dashboard Source Code", subtitle: "View the code on GitHub", icon: "github", href: "https://github.com/Normanpozuelos/guidance-pt-dashboard-public" },
               ]}
