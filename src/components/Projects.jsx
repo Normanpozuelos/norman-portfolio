@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { RevealOnScroll } from "./RevealOnScroll";
 import homeImage from "../assets/Home.png";
 import exerciseListImage from "../assets/exerciseList.png";
@@ -115,6 +116,20 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedScreenshot, platform, currentScreenshots.length]);
 
+  useEffect(() => {
+    if (selectedScreenshot === null) return undefined;
+
+    const { overflow, paddingRight } = document.body.style;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
+    };
+  }, [selectedScreenshot]);
+
   function showPreviousScreenshot() {
     setSelectedScreenshot((currentIndex) => (currentIndex - 1 + currentScreenshots.length) % currentScreenshots.length);
   }
@@ -173,14 +188,14 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
               {groups.length > 1 && (
                 <div className="flex rounded-lg border border-white/10 bg-black/20 p-1" aria-label="Screenshot platform">
                   {groups.map((option) => (
-                    <button key={option} type="button" onClick={() => setPlatform(option)} className={`rounded-md px-3 py-1.5 text-sm transition-colors ${platform === option ? "bg-blue-500 text-white" : "text-gray-400 hover:text-white"}`}>{option}</button>
+                    <button key={option} type="button" onClick={() => setPlatform(option)} className={`cursor-pointer rounded-md px-3 py-1.5 text-sm transition-colors ${platform === option ? "bg-blue-500 text-white" : "text-gray-400 hover:text-white"}`}>{option}</button>
                   ))}
                 </div>
               )}
             </div>
             <div className={`grid gap-3 ${isWide ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-3"}`}>
               {currentScreenshots.map((screenshot, index) => (
-                <button key={screenshot.src} type="button" onClick={() => setSelectedScreenshot(index)} className="group overflow-hidden rounded-xl border border-white/10 bg-black/30 text-left">
+                <button key={screenshot.src} type="button" onClick={() => setSelectedScreenshot(index)} className="cursor-pointer group overflow-hidden rounded-xl border border-white/10 bg-black/30 text-left">
                   <img src={screenshot.src} alt={`Open ${name} ${screenshot.label} screen`} className={`${isWide ? "aspect-[4/3] object-contain p-2" : "aspect-[9/19] object-cover object-top"} w-full transition duration-300 group-hover:scale-105`} loading="lazy" />
                   <span className="block px-3 py-2 text-xs text-gray-300">{screenshot.label}</span>
                 </button>
@@ -189,21 +204,22 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
           </div>
         </div>
       </article>
-      {selectedScreenshot !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4" role="dialog" aria-modal="true" aria-label={`${name} screenshot viewer`} onClick={() => setSelectedScreenshot(null)}>
-          <div className="relative flex max-h-[95vh] w-full max-w-5xl flex-col items-center rounded-2xl border border-white/10 bg-slate-950 p-4 shadow-2xl" onClick={(event) => event.stopPropagation()}>
+      {selectedScreenshot !== null && createPortal(
+        <div className="fixed inset-0 z-50 flex items-center justify-center overscroll-contain bg-black/85 p-4" role="dialog" aria-modal="true" aria-label={`${name} screenshot viewer`} onClick={() => setSelectedScreenshot(null)}>
+          <div className="relative flex max-h-full w-full max-w-5xl flex-col items-center overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-slate-950 p-4 shadow-2xl" onClick={(event) => event.stopPropagation()}>
             <div className="mb-3 flex w-full items-center justify-between gap-4">
               <p className="text-sm text-gray-300">{currentScreenshots[selectedScreenshot].label}</p>
-              <button type="button" onClick={() => setSelectedScreenshot(null)} className="rounded-md px-3 py-1 text-2xl leading-none text-gray-300 hover:bg-white/10 hover:text-white" aria-label="Close screenshot viewer">&times;</button>
+              <button type="button" onClick={() => setSelectedScreenshot(null)} className="cursor-pointer rounded-md px-3 py-1 text-2xl leading-none text-gray-300 hover:bg-white/10 hover:text-white" aria-label="Close screenshot viewer">&times;</button>
             </div>
-            <img src={currentScreenshots[selectedScreenshot].src} alt={`${name} ${currentScreenshots[selectedScreenshot].label} screen`} className="max-h-[78vh] max-w-full object-contain" />
+            <img src={currentScreenshots[selectedScreenshot].src} alt={`${name} ${currentScreenshots[selectedScreenshot].label} screen`} className="max-h-[calc(100dvh-10rem)] min-h-0 max-w-full object-contain" />
             <div className="mt-4 flex items-center justify-between gap-6">
-              <button type="button" onClick={showPreviousScreenshot} className="rounded-md border border-white/15 px-4 py-2 text-sm text-gray-200 hover:bg-white/10" aria-label="Previous screenshot">&larr; Previous</button>
+              <button type="button" onClick={showPreviousScreenshot} className="cursor-pointer rounded-md border border-white/15 px-4 py-2 text-sm text-gray-200 hover:bg-white/10" aria-label="Previous screenshot">&larr; Previous</button>
               <span className="text-xs text-gray-500">{selectedScreenshot + 1} / {currentScreenshots.length}</span>
-              <button type="button" onClick={showNextScreenshot} className="rounded-md border border-white/15 px-4 py-2 text-sm text-gray-200 hover:bg-white/10" aria-label="Next screenshot">Next &rarr;</button>
+              <button type="button" onClick={showNextScreenshot} className="cursor-pointer rounded-md border border-white/15 px-4 py-2 text-sm text-gray-200 hover:bg-white/10" aria-label="Next screenshot">Next &rarr;</button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
