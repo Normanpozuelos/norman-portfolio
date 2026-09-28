@@ -1,35 +1,41 @@
 import { RevealOnScroll } from "../RevealOnScroll"
-import KittLight from "./KittLight"
+import { HeroScene } from "./HeroScene"
 
 export const Home = () => {
     return (
         <>
-        
-        <section id="home" className="min-h-screen flex items-center justify-center relative" >
-            <RevealOnScroll>
-            <div className="text-center z-10  px-4">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-cyan-400 
-                               text-transparent bg-clip-text
-                              leading-right ">
-                    Welcome to My Portfolio</h1>
-                    <KittLight />
-                <p className="text-gray-400 text-lg mb-8 max-w-lg mx-auto">Explore my projects and skills</p>
-                <div className="flex justify-center space-x-4">               
-                 <a href="#projects" 
-                 className="bg-white text-gray-900 px-6 py-3 rounded-full hover:bg-gray-200 transition-colors
-                            hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59, 130, 246, 0.4)]">
-                    View Projects</a>
-                    <a href="#contact" 
-                 className="border border-blue-500/50 text-blue-500 py-3 px-6 rounded-full font-medium
-                           transition all duration-200 ease-in-out
-                           hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59, 130, 246, 0.4)]
-                           hover:bg-blue-500/10">
-                    Contact me</a>
 
-
+        <section id="home" className="relative min-h-svh overflow-hidden" >
+            <HeroScene />
+            <div className="relative z-10 flex min-h-svh flex-col justify-between px-6 pt-20 pb-10
+                            md:justify-start md:px-[8vw] md:pt-[max(5rem,13svh)] md:pb-0">
+                <RevealOnScroll>
+                <div className="relative isolate max-w-md">
+                    {/* Local shade behind the title and scanner only, so the sunset stays bright elsewhere */}
+                    <div className="pointer-events-none absolute -inset-x-12 -inset-y-10 -z-10
+                                    bg-[radial-gradient(closest-side,rgba(2,6,23,0.72),rgba(2,6,23,0.4)_60%,transparent)]"
+                         aria-hidden="true" />
+                    <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-300
+                                   text-transparent bg-clip-text
+                                   [filter:drop-shadow(0_1px_1px_rgba(2,6,23,0.9))_drop-shadow(0_0_14px_rgba(2,6,23,0.7))]
+                                  leading-tight ">
+                        Welcome to My Portfolio</h1>
                 </div>
+                </RevealOnScroll>
+                <RevealOnScroll>
+                <div className="max-w-md">
+                    <p className="text-gray-200 text-lg mb-6">Explore my projects and skills</p>
+                    <div className="flex flex-wrap gap-4">
+                     <a href="#projects"
+                     className="bg-white text-gray-900 px-6 py-3 rounded-full hover:bg-gray-200 transition-colors
+                                hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59, 130, 246, 0.4)]">
+                        View Projects</a>
+
+
+                    </div>
+                </div>
+                </RevealOnScroll>
             </div>
-            </RevealOnScroll>
         </section>
         </>
     )
