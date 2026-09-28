@@ -1,13 +1,30 @@
+import { useRef } from "react"
 import { RevealOnScroll } from "../RevealOnScroll"
 import { HeroScene } from "./HeroScene"
+import { useScrollProgress } from "../../hooks/useScrollProgress"
+
+// Hero text is fully faded (and inert) after this share of the scroll track
+const TEXT_FADE_END = 0.3
 
 export const Home = () => {
+    const trackRef = useRef(null)
+    const textRef = useRef(null)
+
+    useScrollProgress(trackRef, (progress) => {
+        if (textRef.current) textRef.current.inert = progress >= TEXT_FADE_END
+    })
+
     return (
         <>
 
-        <section id="home" className="relative min-h-svh overflow-hidden" >
+        {/* Scroll track: the sticky viewport stays pinned while the page scrolls through it,
+            and --p (0 → 1) drives the camera push. Reduced motion collapses it to one screen. */}
+        <section id="home" ref={trackRef} className="relative h-[200svh] motion-reduce:h-svh" >
+            <div className="sticky top-0 h-svh overflow-hidden">
             <HeroScene />
-            <div className="relative z-10 flex min-h-svh flex-col justify-between px-6 pt-20 pb-10
+            <div ref={textRef}
+                 style={{ opacity: `clamp(0, 1 - var(--p, 0) / ${TEXT_FADE_END}, 1)` }}
+                 className="relative z-10 flex min-h-svh flex-col justify-between px-6 pt-20 pb-10
                             md:justify-start md:px-[8vw] md:pt-[max(5rem,13svh)] md:pb-0">
                 <RevealOnScroll>
                 <div className="relative isolate max-w-md">
@@ -35,6 +52,7 @@ export const Home = () => {
                     </div>
                 </div>
                 </RevealOnScroll>
+            </div>
             </div>
         </section>
         </>

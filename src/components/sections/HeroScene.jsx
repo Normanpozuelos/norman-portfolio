@@ -4,7 +4,8 @@ export const HeroScene = () => {
   return (
     <div className="absolute inset-0 overflow-hidden bg-black [container-type:size]">
       {/* 3:2 wrapper that reproduces object-cover + object-position (60% 45%, portrait 88% 50%),
-          so overlays placed in % stay locked to the same spot in the image at any viewport size */}
+          so overlays placed in % stay locked to the same spot in the image at any viewport size.
+          Scroll progress (--p from Home) pushes the camera toward the cabin (~81% 38%), up to 1.35x. */}
       <div
         className="absolute [--fx:0.6] [--fy:0.45] portrait:[--fx:0.88] portrait:[--fy:0.5]"
         style={{
@@ -12,6 +13,8 @@ export const HeroScene = () => {
           height: "max(100cqh, 66.6667cqw)",
           left: "calc((100cqw - max(100cqw, 150cqh)) * var(--fx))",
           top: "calc((100cqh - max(100cqh, 66.6667cqw)) * var(--fy))",
+          transform: "scale(calc(1 + var(--p, 0) * 0.35))",
+          transformOrigin: "81% 38%",
         }}
       >
         <picture>
