@@ -1,9 +1,13 @@
 import { useEffect, useRef } from "react";
 
-// Tracks how far the page has scrolled through `ref`'s element: 0 when its top reaches the
-// viewport top, 1 when its bottom reaches the viewport bottom. The value is written to the
-// element's `--p` CSS variable (no React re-renders) and passed to the optional onProgress.
-export function useScrollProgress(ref, onProgress) {
+// Tracks scroll progress through `ref`'s element, a sticky scroll track whose height is
+// 100svh (the pinned viewport) plus the sum of the stage lengths (in svh).
+//
+// Writes to the element, without React re-renders:
+//   --p            overall progress, 0 → 1
+//   --<stage name> each stage's own progress, 0 → 1, in order
+// and calls onProgress(p, stageProgress) with the same values.
+export function useScrollProgress(ref, stages, onProgress) {
   const onProgressRef = useRef(onProgress);
 
   useEffect(() => {
@@ -14,16 +18,30 @@ export function useScrollProgress(ref, onProgress) {
     const element = ref.current;
     if (!element) return undefined;
 
+    const totalLength = stages.reduce((sum, stage) => sum + stage.length, 0);
     let frame = 0;
     let listening = false;
 
     function update() {
       frame = 0;
       const rect = element.getBoundingClientRect();
-      const distance = rect.height - window.innerHeight;
-      const progress = distance > 0 ? Math.min(Math.max(-rect.top / distance, 0), 1) : 0;
+      // No scroll distance (e.g. reduced motion collapses the track): everything stays at 0
+      const hasTrack = rect.height - window.innerHeight > 0;
+      const svh = rect.height / (100 + totalLength);
+      const scrolled = hasTrack ? Math.max(-rect.top / svh, 0) : 0;
+
+      const stageProgress = {};
+      let start = 0;
+      for (const stage of stages) {
+        const value = Math.min(Math.max((scrolled - start) / stage.length, 0), 1);
+        stageProgress[stage.name] = value;
+        element.style.setProperty(`--${stage.name}`, value.toFixed(4));
+        start += stage.length;
+      }
+
+      const progress = Math.min(scrolled / totalLength, 1);
       element.style.setProperty("--p", progress.toFixed(4));
-      onProgressRef.current?.(progress);
+      onProgressRef.current?.(progress, stageProgress);
     }
 
     function scheduleUpdate() {
@@ -31,7 +49,7 @@ export function useScrollProgress(ref, onProgress) {
     }
 
     // Only listen to scroll while the element is on screen; one last update on leaving
-    // settles --p at exactly 0 or 1.
+    // settles every value at exactly 0 or 1.
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !listening) {
         window.addEventListener("scroll", scheduleUpdate, { passive: true });
@@ -52,5 +70,5 @@ export function useScrollProgress(ref, onProgress) {
       window.removeEventListener("resize", scheduleUpdate);
       cancelAnimationFrame(frame);
     };
-  }, [ref]);
+  }, [ref, stages]);
 }

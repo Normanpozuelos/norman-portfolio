@@ -1,29 +1,56 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { RevealOnScroll } from "../RevealOnScroll"
 import { HeroScene } from "./HeroScene"
+import { CabinScene } from "./CabinScene"
 import { useScrollProgress } from "../../hooks/useScrollProgress"
 
-// Hero text is fully faded (and inert) after this share of the scroll track
+// Journey stages in scroll order; lengths are in svh of scrolling. Each stage's own
+// 0 → 1 progress is available in CSS as var(--<name>).
+const STAGES = [
+    { name: "push", length: 100 },   // Path 1: camera pushes toward the cabin
+    { name: "arrive", length: 50 },  // Cabin interior fades in over Path 1
+    { name: "cabin", length: 60 },   // Path 2 holds still so the notebook can be discovered
+]
+const TRACK_HEIGHT = `${100 + STAGES.reduce((sum, stage) => sum + stage.length, 0)}svh`
+
+// Hero text is fully faded (and inert) after this share of the push stage
 const TEXT_FADE_END = 0.3
+
+// Handoff into the cabin: a short window of the arrive stage where Path 1 cuts to Path 2.
+// --handoff runs 0 → 1 across the window; --dip goes 0 → 1 → 0, peaking at the cut, and
+// drives a warm dim (lower brightness + sepia) on both scenes so the cut never shows black.
+const HANDOFF_START = 0.5
+const HANDOFF_LENGTH = 0.1
+const HANDOFF_VARS = {
+    "--handoff": `clamp(0, (var(--arrive, 0) - ${HANDOFF_START}) / ${HANDOFF_LENGTH}, 1)`,
+    "--dip": "calc(min(var(--handoff), 1 - var(--handoff)) * 2)",
+    "--dip-filter": "brightness(calc(1 - 0.45 * var(--dip))) sepia(calc(0.35 * var(--dip)))",
+}
+// Path 2 is interactive once the handoff has finished
+const ARRIVED_AT = HANDOFF_START + HANDOFF_LENGTH
 
 export const Home = () => {
     const trackRef = useRef(null)
     const textRef = useRef(null)
+    const [arrived, setArrived] = useState(false)
 
-    useScrollProgress(trackRef, (progress) => {
-        if (textRef.current) textRef.current.inert = progress >= TEXT_FADE_END
+    useScrollProgress(trackRef, STAGES, (progress, stage) => {
+        if (textRef.current) textRef.current.inert = stage.push >= TEXT_FADE_END
+        setArrived(stage.arrive >= ARRIVED_AT)
     })
 
     return (
         <>
 
         {/* Scroll track: the sticky viewport stays pinned while the page scrolls through it,
-            and --p (0 → 1) drives the camera push. Reduced motion collapses it to one screen. */}
-        <section id="home" ref={trackRef} className="relative h-[200svh] motion-reduce:h-svh" >
+            and the stage variables drive the scenes. Reduced motion collapses it to one screen. */}
+        <section id="home" ref={trackRef} style={{ "--track-height": TRACK_HEIGHT, ...HANDOFF_VARS }}
+                 className="relative h-(--track-height) motion-reduce:h-svh" >
             <div className="sticky top-0 h-svh overflow-hidden">
             <HeroScene />
+            <CabinScene arrived={arrived} />
             <div ref={textRef}
-                 style={{ opacity: `clamp(0, 1 - var(--p, 0) / ${TEXT_FADE_END}, 1)` }}
+                 style={{ opacity: `clamp(0, 1 - var(--push, 0) / ${TEXT_FADE_END}, 1)` }}
                  className="relative z-10 flex min-h-svh flex-col justify-between px-6 pt-20 pb-10
                             md:justify-start md:px-[8vw] md:pt-[max(5rem,13svh)] md:pb-0">
                 <RevealOnScroll>
