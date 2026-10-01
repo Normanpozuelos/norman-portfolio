@@ -19,6 +19,8 @@ import gameHubHomeImage from "../assets/gameHubHome.png";
 import gameHubPlatformsImage from "../assets/gameHubPlatforms.png";
 import gameHubOrderByImage from "../assets/gameHubOrderby.png";
 import gameHubDetailImage from "../assets/gameHubDetailView.png";
+import littleLemonHomeImage from "../assets/figma1.png";
+import littleLemonReservationImage from "../assets/figma2.png";
 
 const guidanceScreenshots = {
   iOS: [
@@ -35,7 +37,7 @@ const guidanceScreenshots = {
     { src: androidProgressImage, label: "Progress" },
     { src: androidWorkoutsImage, label: "Workouts" },
   ],
-  Webpage: [
+  "PT Dashboard": [
     { src: webpageImage, label: "Main webpage" },
     { src: inviteCustomerImage, label: "Invite customer" },
     { src: customerTrainingImage, label: "Customer training" },
@@ -52,10 +54,18 @@ const gameHubScreenshots = {
   ],
 };
 
+const littleLemonScreenshots = {
+  Screens: [
+    { src: littleLemonHomeImage, label: "Home & menu" },
+    { src: littleLemonReservationImage, label: "Table reservation" },
+  ],
+};
+
 const linkStyles = {
   appstore: { card: "border-blue-500/40 bg-blue-500/10 hover:border-blue-400 hover:bg-blue-500/20", icon: "bg-blue-500" },
   googleplay: { card: "border-lime-500/40 bg-lime-500/10 hover:border-lime-400 hover:bg-lime-500/20", icon: "bg-lime-600" },
   globe: { card: "border-emerald-500/40 bg-emerald-500/10 hover:border-emerald-400 hover:bg-emerald-500/20", icon: "bg-emerald-500" },
+  figma: { card: "border-violet-500/40 bg-violet-500/10 hover:border-violet-400 hover:bg-violet-500/20", icon: "bg-violet-500" },
   github: { card: "border-indigo-500/40 bg-indigo-500/10 hover:border-indigo-400 hover:bg-indigo-500/20", icon: "bg-transparent" },
 };
 
@@ -75,6 +85,15 @@ function LinkIcon({ type, className }) {
       </svg>
     );
   }
+  if (type === "figma") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 10V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7" />
+        <path d="M4 14v5a1 1 0 0 0 1 1h6" />
+        <path d="m13 13 7 2.5-3 1.5-1.5 3Z" />
+      </svg>
+    );
+  }
   if (type === "globe") {
     return (
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
@@ -91,12 +110,13 @@ function LinkIcon({ type, className }) {
   );
 }
 
-function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], screenshots, wideGroups = [] }) {
+function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], screenshots, wideGroups = [], groupDescriptions = {} }) {
   const groups = Object.keys(screenshots);
   const [platform, setPlatform] = useState(groups[0]);
   const [selectedScreenshot, setSelectedScreenshot] = useState(null);
 
   const currentScreenshots = screenshots[platform];
+  const groupDescription = groupDescriptions[platform];
   const isWide = wideGroups.includes(platform);
 
   useEffect(() => {
@@ -184,7 +204,7 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
           </div>
           <div>
             <div className="mb-5 flex items-center justify-between gap-4">
-              <h4 className="font-semibold text-white">{groups.length > 1 ? "App screens" : "Screenshots"}</h4>
+              <h4 className="font-semibold text-white">{groups.length > 1 ? "Platform screens" : "Screenshots"}</h4>
               {groups.length > 1 && (
                 <div className="flex rounded-lg border border-white/10 bg-black/20 p-1" aria-label="Screenshot platform">
                   {groups.map((option) => (
@@ -193,6 +213,12 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
                 </div>
               )}
             </div>
+            {groupDescription && (
+              <div className="mb-5">
+                <p className="mb-1 text-sm font-semibold text-white">{groupDescription.title}</p>
+                <p className="text-sm leading-relaxed text-gray-400">{groupDescription.text}</p>
+              </div>
+            )}
             <div className={`grid gap-3 ${isWide ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-3"}`}>
               {currentScreenshots.map((screenshot, index) => (
                 <button key={screenshot.src} type="button" onClick={() => setSelectedScreenshot(index)} className="cursor-pointer group overflow-hidden rounded-xl border border-white/10 bg-black/30 text-left">
@@ -237,8 +263,8 @@ export function Projects() {
               title="Guidance"
               name="Guidance"
               descriptions={[
-                "A training companion with tools for exploring exercises, reviewing workout sessions, and tracking progress.",
-                "The project is presented across iOS and Android to show the same training experience on both platforms. I built the applications around a shared backend so training data, accounts, and progress can work consistently across the different parts of the platform.",
+                "Guidance is a cross-platform training platform connecting clients and personal trainers across iOS, Android, and a web dashboard, backed by shared data and services.",
+                "The mobile apps give clients tools for exploring exercises, reviewing workout sessions, and tracking progress.",
               ]}
               tags={["SwiftUI", "SwiftData", "Kotlin", "Jetpack Compose", "Next.js", "Supabase", "RLS", "Edge Functions", "Google Auth", "Localization"]}
               links={[
@@ -248,7 +274,13 @@ export function Projects() {
                 { label: "Dashboard Source Code", subtitle: "View the code on GitHub", icon: "github", href: "https://github.com/Normanpozuelos/guidance-pt-dashboard-public" },
               ]}
               screenshots={guidanceScreenshots}
-              wideGroups={["Webpage"]}
+              wideGroups={["PT Dashboard"]}
+              groupDescriptions={{
+                "PT Dashboard": {
+                  title: "PT Dashboard",
+                  text: "The web dashboard is the trainer side of Guidance. Personal trainers can manage clients, create and organize training plans, assign exercises, and review training sessions. It shares the same backend and training data as the mobile apps, connecting the client and trainer experiences across the platform.",
+                },
+              }}
             />
             <ProjectCard
               eyebrow="Course project"
@@ -265,6 +297,20 @@ export function Projects() {
               ]}
               screenshots={gameHubScreenshots}
               wideGroups={["Screens"]}
+            />
+            <ProjectCard
+              eyebrow="Meta Front-End Developer · Figma prototype"
+              title="Little Lemon"
+              name="Little Lemon"
+              descriptions={[
+                "A restaurant web-app prototype created as my final project for the Meta Front-End Developer program.",
+                "The interactive prototype focuses on the table reservation flow, including date, time, number of guests, and confirmation. Other screens and menu sections are presented as visual UX work but are not interactive.",
+              ]}
+              tags={["Figma", "UX Design", "Interactive Prototype"]}
+              links={[
+                { label: "Explore the Figma Prototype", subtitle: "Interactive reservation flow: date, time, guests, confirmation", icon: "figma", href: "https://www.figma.com/proto/7rwQEXNRjGlZ0SNz4MmHUz/final?node-id=119-160&starting-point-node-id=1%3A2" },
+              ]}
+              screenshots={littleLemonScreenshots}
             />
             <div className="-mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 shadow-[0_0_24px_rgba(59,130,246,0.22),0_0_56px_rgba(34,211,238,0.085)] transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.34),0_0_64px_rgba(34,211,238,0.145)]">
               <h3 className="mb-2 text-xl font-bold text-white">Portfolio Source Code</h3>
