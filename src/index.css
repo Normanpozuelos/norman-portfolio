@@ -124,3 +124,34 @@ html, body {
     opacity: 1;
   }
 }
+
+
+/* Cabin discoveries (CabinDiscoveries): a soft band of warm light crossing the photo frame
+   once as it opens, and faint steam rising from the mug. */
+@keyframes photo-edge-light {
+  from {
+    background-position: 110% 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    background-position: -10% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes mug-steam {
+  0% {
+    transform: translateY(6px) scaleY(0.8);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-14px) scaleY(1.15);
+    opacity: 0;
+  }
+}

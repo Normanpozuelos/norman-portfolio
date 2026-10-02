@@ -1,6 +1,7 @@
 import path2Image from "../../assets/path2.png";
 import { SceneFrame } from "./SceneFrame";
 import { NotebookInteraction } from "./NotebookInteraction";
+import { CabinDiscoveries } from "./CabinDiscoveries";
 
 export const CabinScene = ({ arrived }) => {
   return (
@@ -39,6 +40,7 @@ export const CabinScene = ({ arrived }) => {
           Anything inside can be placed in % of the actual image. */}
       <div className="absolute inset-y-0 left-[-13.3333%] w-[126.6667%]">
         <NotebookInteraction active={arrived} />
+        <CabinDiscoveries active={arrived} />
       </div>
     </SceneFrame>
   );
