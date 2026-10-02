@@ -112,10 +112,11 @@ const THOUGHT_LINES = [
   { text: "If AI disappeared tomorrow…" },
   { text: "could I still build this?" },
   { text: "Yes.", gap: true },
+  { text: "Keep learning.", gap: true },
   { text: "Curiosity wins today.", gap: true },
 ];
 const THOUGHT = THOUGHT_LINES.map((line) => line.text).join(" ");
-const MUG_LINE = "A yawn is a silent scream for coffee.";
+const MUG_LINE = "A yawn ☕🥱 is a silent scream for coffee.";
 
 const PhotoDiscovery = ({ active }) => {
   const { revealed, handlers } = useDiscovery(active, 9000);
