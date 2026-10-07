@@ -79,7 +79,7 @@ function useDiscovery(active, settleAfterMs) {
     setRevealed(false);
   }
 
-  return {
+may  return {
     // Settles back automatically if the visitor scrolls away from the cabin
     revealed: revealed && active,
     handlers: {

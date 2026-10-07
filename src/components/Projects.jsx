@@ -12,6 +12,7 @@ import androidExerciseDetailImage from "../assets/detailAndroid.png";
 import androidProgressImage from "../assets/progressAndroid.png";
 import androidWorkoutsImage from "../assets/workoutsAndroid.png";
 import webpageImage from "../assets/Mainwebpage.png";
+import macDashboardImage from "../assets/webforMac.png";
 import inviteCustomerImage from "../assets/InviteCostumer.png";
 import customerTrainingImage from "../assets/costumertraining.png";
 import trainingSessionsImage from "../assets/training day sessions for costumer.png";
@@ -21,6 +22,7 @@ import gameHubOrderByImage from "../assets/gameHubOrderby.png";
 import gameHubDetailImage from "../assets/gameHubDetailView.png";
 import littleLemonHomeImage from "../assets/figma1.png";
 import littleLemonReservationImage from "../assets/figma2.png";
+import { GuidanceDevice3D } from "./GuidanceDevice3D";
 
 const guidanceScreenshots = {
   iOS: [
@@ -110,7 +112,7 @@ function LinkIcon({ type, className }) {
   );
 }
 
-function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], screenshots, wideGroups = [], groupDescriptions = {} }) {
+function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], screenshots, wideGroups = [], groupDescriptions = {}, showPhonePrototype = false }) {
   const groups = Object.keys(screenshots);
   const [platform, setPlatform] = useState(groups[0]);
   const [selectedScreenshot, setSelectedScreenshot] = useState(null);
@@ -219,6 +221,7 @@ function ProjectCard({ eyebrow, title, name, descriptions, tags, links = [], scr
                 <p className="text-sm leading-relaxed text-gray-400">{groupDescription.text}</p>
               </div>
             )}
+            {showPhonePrototype && <GuidanceDevice3D platform={platform} screen={platform === "PT Dashboard" ? macDashboardImage : currentScreenshots[0].src} />}
             <div className={`grid gap-3 ${isWide ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-3"}`}>
               {currentScreenshots.map((screenshot, index) => (
                 <button key={screenshot.src} type="button" onClick={() => setSelectedScreenshot(index)} className="cursor-pointer group overflow-hidden rounded-xl border border-white/10 bg-black/30 text-left">
@@ -274,6 +277,7 @@ export function Projects() {
                 { label: "Dashboard Source Code", subtitle: "View the code on GitHub", icon: "github", href: "https://github.com/Normanpozuelos/guidance-pt-dashboard-public" },
               ]}
               screenshots={guidanceScreenshots}
+              showPhonePrototype
               wideGroups={["PT Dashboard"]}
               groupDescriptions={{
                 "PT Dashboard": {
